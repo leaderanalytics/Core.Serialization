@@ -16,7 +16,7 @@ variables:
   buildConfiguration: 'Release'
   major: 1
   minor: 0
-  patch: $[counter(variables['minor'], 84)] #increment the name and set the seed to zero when major or minor change
+  patch: $[counter(variables['minor'], 0)] # will be reset when minor changes
   NugetVersion: $(major).$(minor).$(patch)
 
 steps:
@@ -44,8 +44,7 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'NugetVersion'
 
-   #nobuild: true
-   #versioningScheme: 'off'
+   
 
 - task: NuGetCommand@2
   inputs:
