@@ -52,3 +52,4 @@ steps:
     feedsToUse: 'select'
     vstsFeed: 'LeaderAnalyticsFeed'
     publishVstsFeed: 'LeaderAnalyticsFeed'
+    includeNuGetOrg: true
