@@ -46,8 +46,6 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'NugetVersion'
 
-   
-
 - task: NuGetCommand@2
   inputs:
     command: 'push'
@@ -55,16 +53,6 @@ steps:
     vstsFeed: 'LeaderAnalyticsFeed'
     publishVstsFeed: 'LeaderAnalyticsFeed'
 
-
-- task: NuGetAuthenticate@0
-  inputs:
-    nuGetServiceConnections: 'nuget.org'
-- task: NuGetCommand@2
-  inputs:
-    command: push
-    nuGetFeedType: external
-    versioningScheme: byEnvVar
-    versionEnvVar: 'NugetVersion'
 - task: PowerShell@2
   displayName: "Push package to nuget.org"
   inputs:
