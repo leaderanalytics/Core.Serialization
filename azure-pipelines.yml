@@ -52,7 +52,10 @@ steps:
     feedsToUse: 'select'
     vstsFeed: 'LeaderAnalyticsFeed'
     publishVstsFeed: 'LeaderAnalyticsFeed'
-    
+
+- task: NuGetAuthenticate@0
+  inputs:
+    nuGetServiceConnections: 'nuget.org'    
 
 - task: NuGetCommand@2
   displayName: 'Publish to Nuget.org'
