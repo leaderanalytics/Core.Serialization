@@ -20,7 +20,6 @@ variables:
   NugetVersion: $(major).$(minor).$(patch)
 
 steps:
-- script: echo $(nugetorg_apikey)
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
