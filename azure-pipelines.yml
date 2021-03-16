@@ -56,9 +56,4 @@ steps:
   inputs:
     targetType: 'inline'
     script: 'nuget push $(Build.ArtifactStagingDirectory)\*.nupkg -ApiKey $(nuget.org_apikey) -Source https://api.nuget.org/v3/index.json'    
-    
-- task: PowerShell@2
-  displayName: "Push package symbols to nuget.org"
-  inputs:
-    targetType: 'inline'
-    script: 'nuget push $(Build.ArtifactStagingDirectory)\*.snupkg -ApiKey $(nuget.org_apikey) -Source https://api.nuget.org/v3/index.json'    
+ 
