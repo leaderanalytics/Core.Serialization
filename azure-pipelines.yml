@@ -53,9 +53,6 @@ steps:
     vstsFeed: 'LeaderAnalyticsFeed'
     publishVstsFeed: 'LeaderAnalyticsFeed'
 
-- task: NuGetAuthenticate@0
-  inputs:
-    nuGetServiceConnections: 'nuget.org'    
 
 - task: NuGetCommand@2
   displayName: 'Publish to Nuget.org'
@@ -63,3 +60,4 @@ steps:
     command: 'push'
     feedsToUse: 'config'
     includeNuGetOrg: true
+    externalFeedCredentials: 'nuget.org'
