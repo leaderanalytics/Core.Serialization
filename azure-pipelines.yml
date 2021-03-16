@@ -22,7 +22,7 @@ variables:
 
 
 steps:
-- script: echo $(nuget.org_apikey)
+- script: echo $(nugetorg_apikey)
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
@@ -58,4 +58,4 @@ steps:
   displayName: "Push package to nuget.org"
   inputs:
     targetType: 'inline'
-    script: 'nuget push $(Build.ArtifactStagingDirectory)\*.nupkg -ApiKey $(nuget.org_apikey) -Source https://api.nuget.org/v3/index.json'    
+    script: 'nuget push $(Build.ArtifactStagingDirectory)\*.nupkg -ApiKey $(nugetorg_apikey) -Source https://api.nuget.org/v3/index.json'    
