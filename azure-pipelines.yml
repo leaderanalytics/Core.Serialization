@@ -58,6 +58,6 @@ steps:
   displayName: 'Publish to Nuget.org'
   inputs:
     command: 'push'
-    feedsToUse: 'config'
+    feedsToUse: 'select'
     includeNuGetOrg: true
     externalFeedCredentials: 'nuget.org'
