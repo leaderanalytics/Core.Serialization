@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  group: apikeys
+  group: 'apikeys'
   project: '**/Core.Serialization.csproj'
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
@@ -22,6 +22,7 @@ variables:
 
 
 steps:
+- script: echo $(nuget.org_apikey)
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
