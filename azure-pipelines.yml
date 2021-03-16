@@ -52,4 +52,11 @@ steps:
     feedsToUse: 'select'
     vstsFeed: 'LeaderAnalyticsFeed'
     publishVstsFeed: 'LeaderAnalyticsFeed'
+    
+
+- task: NuGetCommand@2
+  displayName: 'Publish to Nuget.org'
+  inputs:
+    command: 'push'
+    feedsToUse: 'config'
     includeNuGetOrg: true
