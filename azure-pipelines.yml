@@ -45,13 +45,12 @@ steps:
     projects: $(project)
 
 - task: DotNetCoreCLI@2
-  displayName: "dotnet pack"
+  displayName: 'dotnet pack'
   inputs:
-    command: 'pack'
-    arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: $(project)
-    versioningScheme: 'byEnvVar'
-    versionEnvVar: 'NugetVersion'
+    command: 'custom'
+    custom: 'pack'
+    arguments: '$(project) /p:PublicRelease=true --no-build --include-symbols --include-source -c=Release -o $(build.artifactstagingdirectory)'
+
 
 - task: AzureKeyVault@2
   name: KeyVaultSecrets
@@ -72,5 +71,5 @@ steps:
   displayName: "Push package to nuget.org"
   inputs:
     targetType: 'inline'
-    script: 'nuget push $(Build.ArtifactStagingDirectory)\*.nupkg -ApiKey $(nuget.org_apikey) -Source https://api.nuget.org/v3/index.json'    
+    script: 'nuget push $(Build.ArtifactStagingDirectory)\*.nupkg -ApiKey $(nuget-apikey) -Source https://api.nuget.org/v3/index.json'    
  
