@@ -14,23 +14,28 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  major: 2
-  minor: 0
-  patch: $[counter(variables['minor'], 0)] # will be reset when minor changes
-  NugetVersion: $(major).$(minor).$(patch)
+  
 
 steps:
-- task: NuGetToolInstaller@1
 
-- task: UseDotNet@2
-  displayName: 'Use dotnet 6'
-  inputs:
-    version: '6.x'
+# nbgv need a deep clone
 
-- task: NuGetCommand@2
+- checkout: self
+  fetchDepth: 0
+
+# install nbgv tooling
+
+- task: DotNetCoreCLI@2  
+  displayName: Install NBGV tool
   inputs:
-    restoreSolution: '$(solution)'
-    vstsFeed: 'LeaderAnalyticsFeed'
+    command: custom
+    custom: tool
+    arguments: install --tool-path . nbgv
+
+# allow nbgv to set the version
+
+- script: nbgv cloud
+  displayName: Set Version
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet build'
@@ -38,7 +43,6 @@ steps:
     command: 'build'
     arguments: '--configuration $(buildConfiguration)'
     projects: $(project)
-
 
 - task: DotNetCoreCLI@2
   displayName: "dotnet pack"
@@ -48,6 +52,14 @@ steps:
     packagesToPack: $(project)
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'NugetVersion'
+
+- task: AzureKeyVault@2
+  name: KeyVaultSecrets
+  displayName: Get Nuget API key from Key Vault
+  inputs:
+    azureSubscription: 'All Azure Services'
+    KeyVaultName: 'LeaderAnalyticsVault'
+    SecretsFilter: 'nuget-apikey'
 
 - task: NuGetCommand@2
   inputs:
