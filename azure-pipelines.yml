@@ -39,6 +39,11 @@ steps:
 - script: nbgv cloud
   displayName: Set Version
 
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+    vstsFeed: 'LeaderAnalyticsFeed'
+
 - task: DotNetCoreCLI@2
   displayName: 'dotnet build'
   inputs:
